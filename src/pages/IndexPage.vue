@@ -1,42 +1,21 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="column items-center justify-center">
+    <div class="text-h6">Quasar / Vite / Trypescript / Electron bug</div>
+    <q-btn class="q-mt-md" @click="testMeAsync">Test API Async</q-btn>
+    <q-btn class="q-mt-md" @click="maximize">Maximize</q-btn>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-import { ref } from 'vue';
+import { electronApi } from 'src/api/electron-api';
 
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
-const meta = ref<Meta>({
-  totalCount: 1200
-});
+const testMeAsync = async () => {
+  console.log('testMeAsync');
+  await electronApi.testMeAsync();
+};
+
+const maximize = () => {
+  console.log('maximize');
+  electronApi.maximize();
+};
 </script>
