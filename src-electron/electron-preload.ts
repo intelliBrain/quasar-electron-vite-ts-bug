@@ -14,6 +14,23 @@ contextBridge.exposeInMainWorld('electronApi', {
 
   maximize: () => {
     console.log('=> maximize');
-    //const win = BrowserWindow.getFocusedWindow(); // IMPORTANT: NO ERROR if this line is commented out!
+    const win = BrowserWindow.getFocusedWindow(); // IMPORTANT: NO ERROR if this line is commented out!
+
+    if (win !== null) {
+      if (win.isMaximizable()) {
+        if (win.isMaximized() === false) {
+          win.maximize();
+        } else {
+          console.log(
+            'unable to maximize, win is already maximized => restore instead'
+          );
+          win.restore();
+        }
+      } else {
+        console.log('unable to maximize, win is not maximizable');
+      }
+    } else {
+      console.log('unable to maximize, win is null');
+    }
   },
 });
